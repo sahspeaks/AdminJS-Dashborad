@@ -26,6 +26,13 @@ const start = async () => {
   sessionStore.on('error', (error) => {
     console.log('Session store error', error);
   });
+  const isProduction = process.env.RENDER === 'true' || process.env.NODE_ENV === 'production';
+  const cookieConfig = {
+    cookie: {
+      httpOnly: isProduction,
+      secure: isProduction,
+    },
+  };
   const router = buildAuthenticatedRouter(
     admin,
     {
@@ -39,10 +46,7 @@ const start = async () => {
       secret: process.env.COOKIE_SECRET,
       saveUninitialized: true,
       resave: true,
-      cookie: {
-        httpOnly: process.env.NODE_ENV === 'production',
-        secure: process.env.NODE_ENV === 'production',
-      },
+      cookieConfig,
       name: 'adminjs',
     }
   );

@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": ["node"],
     "jsx": "react",
     "module": "nodenext",
     "moduleResolution": "nodenext",
